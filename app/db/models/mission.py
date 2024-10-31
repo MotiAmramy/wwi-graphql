@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Numeric, Date
+from sqlalchemy import Column, Integer, Numeric, Date, Float
 
 from app.db.models import Base
 
@@ -8,13 +8,13 @@ class Mission(Base):
 
     mission_id = Column(Integer, primary_key=True, autoincrement=True)
     mission_date = Column(Date, nullable=True)
-    airborne_aircraft = Column(Numeric(10, 2), nullable=True)
-    attacking_aircraft = Column(Numeric(10, 2), nullable=True)
-    bombing_aircraft = Column(Numeric(10, 2), nullable=True)
-    aircraft_returned = Column(Numeric(10, 2), nullable=True)
-    aircraft_failed = Column(Numeric(10, 2), nullable=True)
-    aircraft_damaged = Column(Numeric(10, 2), nullable=True)
-    aircraft_lost = Column(Numeric(10, 2), nullable=True)
+    airborne_aircraft = Column(Float, nullable=True)
+    attacking_aircraft = Column(Float, nullable=True)
+    bombing_aircraft = Column(Float, nullable=True)
+    aircraft_returned = Column(Float, nullable=True)
+    aircraft_failed = Column(Float, nullable=True)
+    aircraft_damaged = Column(Float, nullable=True)
+    aircraft_lost = Column(Float, nullable=True)
 
     def __repr__(self):
         return (f"<Mission(id={self.mission_id}, date={self.mission_date}, "

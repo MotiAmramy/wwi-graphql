@@ -1,6 +1,7 @@
-from graphene import ObjectType, Int, String, Float
+from graphene import ObjectType, Int, String, Float, Field
 
-
+import app.gql.types.country_type
+from app.db.repository.country_repository import get_country_by_id
 
 
 class CityType(ObjectType):
@@ -9,3 +10,8 @@ class CityType(ObjectType):
     country_id = Int()
     latitude = Float()
     longitude = Float()
+    country = Field('app.gql.types.country_type.CountryType')
+
+    @staticmethod
+    def resolve_country(root, info):
+        return get_country_by_id(root.country_id)

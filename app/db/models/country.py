@@ -10,7 +10,7 @@ class Country(Base):
     country_id = Column(Integer, primary_key=True, autoincrement=True)
     country_name = Column(String(100), nullable=False, unique=True)
 
-    # Relationship to the City model
+
     cities = relationship("City", back_populates="country")
 
     def __repr__(self):
