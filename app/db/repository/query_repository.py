@@ -1,5 +1,5 @@
 from app.db.database import session_maker
-from app.db.models import Target, City, Country
+from app.db.models import Target, City, Country, TargetType
 from app.db.models.mission import Mission
 
 
@@ -15,7 +15,7 @@ def get_missions_by_date_range(start_date, end_date):
 
 
 def get_missions_by_country_name(country_name):
-    with session_maker() as session:
+    with (session_maker() as session):
         return session.query(Mission).join(Mission.targets).join(Target.city).join(City.country).filter(Country.country_name == country_name).all()
 
 
@@ -28,6 +28,6 @@ def get_all_missions():
         return session.query(Mission).all()
 
 
-def get_attack_results_by_type(attack_type):
+def get_mission_result_by_target_type(target_type_name):
     with session_maker() as session:
-        return session.query(Mission).filter(Mission.attack_type == attack_type).all()
+        return session.query(Mission).join(Mission.targets).join(Target.target_type).filter(TargetType.target_type_name == target_type_name).all()

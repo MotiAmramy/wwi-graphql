@@ -6,8 +6,7 @@ from app.db.models import Base
 
 class Mission(Base):
     __tablename__ = 'missions'
-
-    mission_id = Column(Integer, primary_key=True, autoincrement=True)
+    mission_id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     mission_date = Column(Date, nullable=True)
     airborne_aircraft = Column(Float, nullable=True)
     attacking_aircraft = Column(Float, nullable=True)

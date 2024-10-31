@@ -3,7 +3,7 @@ from app.db.database import session_maker
 from app.db.models import City
 from app.db.repository.mission_repository import get_mission_by_id, get_all_missions
 from app.db.repository.query_repository import get_missions_by_target_industry, \
-    get_missions_by_date_range, get_attack_results_by_type, get_missions_by_country_name
+    get_missions_by_date_range, get_missions_by_country_name, get_mission_result_by_target_type
 from app.gql.types.city_type import CityType
 from app.gql.types.mission_type import MissionType
 
@@ -16,7 +16,7 @@ class Query(ObjectType):
     missions_by_target_industry = List(MissionType, target_industry=String(required=True))
     missions_by_country_name = List(MissionType, country_name=String(required=True))
     all_missions = List(MissionType)
-    attack_results_by_type = List(MissionType, attack_type=String(required=True))
+    mission_result_by_target_type = List(MissionType, target_type=String(required=True))
 
 
     @staticmethod
@@ -47,5 +47,5 @@ class Query(ObjectType):
         return get_all_missions()
 
     @staticmethod
-    def resolve_attack_results_by_type(root, info, attack_type):
-        return get_attack_results_by_type(attack_type)
+    def resolve_mission_result_by_target_type(root, info, target_type):
+        return get_mission_result_by_target_type(target_type)

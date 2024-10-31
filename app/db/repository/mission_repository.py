@@ -2,12 +2,24 @@ from app.db.database import session_maker
 from app.db.models.mission import Mission
 
 
-def create_mission(mission: Mission):
+
+def create_mission(mission_input):
+    new_mission = Mission(
+        mission_date=mission_input.mission_date,
+        airborne_aircraft=mission_input.airborne_aircraft,
+        attacking_aircraft=mission_input.attacking_aircraft,
+        bombing_aircraft=mission_input.bombing_aircraft,
+        aircraft_returned=mission_input.aircraft_returned,
+        aircraft_failed=mission_input.aircraft_failed,
+        aircraft_damaged=mission_input.aircraft_damaged,
+        aircraft_lost=mission_input.aircraft_lost
+    )
+
     with session_maker() as session:
-        session.add(mission)
+        session.add(new_mission)
         session.commit()
-        session.refresh(mission)
-        return mission
+        session.refresh(new_mission)
+        return new_mission
 
 def get_all_missions():
     with session_maker() as session:
