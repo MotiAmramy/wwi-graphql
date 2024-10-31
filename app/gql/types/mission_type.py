@@ -17,3 +17,8 @@ class MissionType(ObjectType):
     @staticmethod
     def resolve_targets(root, info):
         return get_targets_by_mission_id(root.mission_id)
+
+
+
+
+

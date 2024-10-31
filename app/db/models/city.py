@@ -15,5 +15,6 @@ class City(Base):
     targets = relationship("Target", back_populates="city")
 
 
+
     def __repr__(self):
         return f"<City(id={self.city_id}, name='{self.city_name}', country_id={self.country_id})>"

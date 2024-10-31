@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, Date, Float
+from sqlalchemy import Column, Integer, Numeric, Date, Float
 from sqlalchemy.orm import relationship
 
 from app.db.models import Base
+
 
 
 class Mission(Base):
@@ -16,7 +17,8 @@ class Mission(Base):
     aircraft_damaged = Column(Float, nullable=True)
     aircraft_lost = Column(Float, nullable=True)
 
-    targets = relationship("Target", back_populates="mission")
+    targets = relationship("Target", back_populates="mission", cascade="all, delete-orphan")
+
 
 
     def __repr__(self):

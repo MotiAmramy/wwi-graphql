@@ -55,6 +55,7 @@ def update_mission(mission_id, mission_date=None, airborne_aircraft=None,
             session.commit()
         return mission
 
+
 def delete_mission(mission_id):
     with session_maker() as session:
         mission = session.query(Mission).filter(Mission.mission_id == mission_id).first()
@@ -63,3 +64,23 @@ def delete_mission(mission_id):
             session.commit()
             return True
         return False
+
+
+
+
+def update_mission_five_field(input):
+    with session_maker() as session:
+        mission = session.query(Mission).filter(Mission.mission_id == input.mission_id).first()
+
+        if not mission:
+            raise Exception("Mission not found")
+
+        mission.aircraft_returned = input.aircraft_returned  # Corrected field names
+        mission.aircraft_failed = input.aircraft_failed
+        mission.aircraft_damaged = input.aircraft_damaged
+        mission.aircraft_lost = input.aircraft_lost
+
+        session.commit()
+        session.refresh(mission)
+
+    return mission

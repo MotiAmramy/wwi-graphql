@@ -19,6 +19,8 @@ class Target(Base):
     target_type = relationship("TargetType", back_populates="targets")
 
 
+
+
     def __repr__(self):
         return (f"<Target(id={self.target_id}, industry='{self.target_industry}', "
                 f"city_id={self.city_id}, mission_id={self.mission_id}, "

@@ -1,8 +1,7 @@
-from graphene import Mutation, InputObjectType, Int, String, Float, Field
-from app.db.repository.mission_repository import create_mission
-from app.db.repository.target_repository import create_target
+from graphene import Mutation, InputObjectType, Int, String, Float, Field, Boolean
+from app.db.repository.mission_repository import create_mission, update_mission_five_field, delete_mission
 from app.gql.types.mission_type import MissionType
-from app.gql.types.target_type import TargetType
+
 
 
 class MissionInput(InputObjectType):
@@ -32,31 +31,33 @@ class AddMission(Mutation):
 
 
 
+class UpdateMissionInput(InputObjectType):
+    mission_id = Int(required=True)
+    aircraft_returned = Float(required=True)
+    aircraft_failed = Float(required=True)
+    aircraft_damaged = Float(required=True)
+    aircraft_lost = Float(required=True)
 
-
-
-
-class AddTarget(Mutation):
+class UpdateMission(Mutation):
     class Arguments:
-        mission_id = Int(required=True)
-        target_industry = String(required=True)
-        city_id = Int(required=True)
-        target_type_id = Int(required=False)
-        target_priority = Int(required=False)
+        update_mission_input = UpdateMissionInput(required=True)
 
-    target = Field(TargetType)
+    mission = Field(MissionType)
 
     @staticmethod
-    def mutate(root, info, mission_id, target_industry, city_id, target_type_id=None, target_priority=None):
-        new_target = Target(
-            mission_id=mission_id,
-            target_industry=target_industry,
-            city_id=city_id,
-            target_type_id=target_type_id,
-            target_priority=target_priority
-        )
+    def mutate(root, info, update_mission_input):
+        mission = update_mission_five_field(update_mission_input)
+        return UpdateMission(mission=mission)
 
-        # Use the create_target function to handle the database operations
-        created_target = create_target(new_target)
 
-        return AddTarget(target=created_target)
+class DeleteMissionMutation(Mutation):
+    class Arguments:
+        mission_id = Int(required=True)
+
+    success = Boolean()
+
+    @staticmethod
+    def mutate(self, info, mission_id):
+        mission = delete_mission(mission_id)
+        if mission:
+            return DeleteMissionMutation(success=True)
