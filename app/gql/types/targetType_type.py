@@ -1,6 +1,4 @@
 from graphene import ObjectType, Int, String, List
-
-import app.gql.types.target_type
 from app.db.repository.target_repository import get_targets_by_type_id
 
 

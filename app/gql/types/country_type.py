@@ -1,8 +1,4 @@
 from graphene import List, String, Int, ObjectType
-
-import app.gql.types.city_type
-from app.db.database import session_maker
-from app.db.models.city import City
 from app.db.repository.city_repository import get_cities_by_country_id
 
 

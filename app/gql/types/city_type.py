@@ -1,6 +1,4 @@
 from graphene import ObjectType, Int, String, Float, Field
-
-import app.gql.types.country_type
 from app.db.repository.country_repository import get_country_by_id
 
 
