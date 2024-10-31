@@ -9,10 +9,3 @@ session_maker = sessionmaker(bind=engine)
 
 
 
-#
-# class Test(Base):
-#     __tablename__ = "test"
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#
-# def init_db():
-#     Base.metadata.create_all(engine)
