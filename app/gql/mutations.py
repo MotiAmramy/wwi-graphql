@@ -5,6 +5,6 @@ from app.gql.mutations_file.target_mutations import CreateTarget
 
 class Mutation(ObjectType):
     add_mission = AddMission.Field()
-    created_target = CreateTarget.Field()
+    create_target = CreateTarget.Field()
     update_mission = UpdateMission.Field()
     delete_mission = DeleteMissionMutation.Field()

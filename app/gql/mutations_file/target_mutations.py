@@ -9,7 +9,6 @@ from app.db.repository.target_repository import create_target
 
 class CreateTarget(Mutation):
     class Arguments:
-        mission_id = Int(required=True)
         target_industry = String(required=True)
         city_id = Int(required=True)
         target_type_id = Int(required=False)
@@ -18,9 +17,8 @@ class CreateTarget(Mutation):
     target = Field(TargetType)
 
     @staticmethod
-    def mutate(root, info, mission_id, target_industry, city_id, target_type_id=None, target_priority=None):
+    def mutate(root, info, target_industry, city_id, target_type_id=None, target_priority=None):
         new_target = Target(
-            mission_id=mission_id,
             target_industry=target_industry,
             city_id=city_id,
             target_type_id=target_type_id,
